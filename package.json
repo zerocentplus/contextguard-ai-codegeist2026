@@ -1,0 +1,34 @@
+{
+  "name": "contextguard-ai",
+  "version": "1.0.0",
+  "description": "ContextGuard AI — Engineering Context & Release Readiness Copilot for Atlassian Forge (Codegeist 2026)",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "echo 'No build step required for Custom UI'",
+    "lint": "eslint src/ static/main/app.js --ext .js",
+    "check": "node --check src/index.js && node --check static/main/app.js && echo 'All syntax checks passed'"
+  },
+  "dependencies": {
+    "@forge/api": "^4.0.0",
+    "@forge/resolver": "^2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0"
+  },
+  "keywords": [
+    "atlassian",
+    "forge",
+    "jira",
+    "confluence",
+    "rovo",
+    "codegeist",
+    "ai",
+    "release-readiness",
+    "context-guard"
+  ],
+  "author": "ContextGuard Team",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
