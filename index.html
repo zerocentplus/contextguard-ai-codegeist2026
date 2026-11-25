@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ContextGuard AI — Engineering Context & Release Readiness Copilot" />
+  <title>ContextGuard AI</title>
+
+  <!--
+    @forge/bridge CDN script.
+    In a deployed Forge Custom UI, Forge injects this automatically via the
+    resource loader. The CDN path below is the standard Atlassian-provided URL.
+    It exposes window.ForgeUI with .invoke() and .view.
+  -->
+  <script src="https://connect-cdn.atl-paas.net/all.js" data-options="sizeToParent:true"></script>
+  <!-- @forge/bridge is served by the Forge runtime at the path below -->
+  <script>
+    // Forge Custom UI bridge bootstrap.
+    // When running inside the Forge iframe, the platform injects
+    // window.ForgeUI = { invoke, view } before this script runs.
+    // We set a flag so app.js can detect bridge availability.
+    window.__FORGE_CUSTOM_UI__ = true;
+  </script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Rendered by app.js -->
+  </div>
+
+  <!--
+    Load @forge/bridge from the Forge-injected module resolver.
+    In production this module is provided by the Forge runtime.
+    For local development, app.js gracefully degrades to demo mode
+    when window.ForgeUI is not available.
+  -->
+  <script type="module">
+    /**
+     * Attempt to import @forge/bridge from the Forge runtime module path.
+     * If this fails (outside Forge iframe), app.js demo-mode fallback activates.
+     */
+    try {
+      const { invoke, view } = await import('@forge/bridge');
+      window.ForgeUI = { invoke, view };
+    } catch (e) {
+      // Not running inside Forge — app.js will use demo mode
+      console.info('ContextGuard: @forge/bridge import skipped (not in Forge iframe)');
+    }
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
